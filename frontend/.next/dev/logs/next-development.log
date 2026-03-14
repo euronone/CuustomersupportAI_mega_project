@@ -1,0 +1,317 @@
+[00:00:00.756] Server  LOG     ✓ Ready in 558ms
+[00:00:57.960] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:56.155] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:50.265] Server  ERROR   ⨯ ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+
+./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+
+
+./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+
+
+./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+
+[00:02:50.883] Server  ERROR   ⨯ ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+
+./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+
+
+./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+
+
+./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+
+[00:02:50.890] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:50.890] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:50.890] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:50.890] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:50.890] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:50.890] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:50.890] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:50.890] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:50.890] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:50.890] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:50.890] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:50.890] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:50.890] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:50.890] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:50.890] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:50.890] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:50.890] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:50.890] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:50.890] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:50.890] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:50.890] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:50.890] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:50.890] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:50.890] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:50.890] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:50.894] Server  ERROR   ⨯ ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+
+./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+
+
+./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+
+
+./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+
+[00:02:50.896] Server  ERROR   ⨯ ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+
+./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+
+
+./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+
+
+./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+
+[00:02:50.912] Server  ERROR   ⨯ ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+
+./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+
+
+./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+
+
+./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+
+[00:02:50.924] Server  ERROR   ⨯ ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+
+./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+
+
+./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+
+
+./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+
+[00:02:50.934] Server  ERROR   ⨯ ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+
+./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+
+
+./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+
+
+./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+
+[00:02:50.946] Server  ERROR   ⨯ ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+
+./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+
+
+./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+
+
+./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+
+
+./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+
+[00:02:51.035] Browser ERROR   uncaughtError: Error: ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+
+[00:02:51.415] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:51.415] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:51.415] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:51.415] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:51.415] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:51.415] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:51.415] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:51.415] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:51.415] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:51.415] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:51.415] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:51.415] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:51.415] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:51.415] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:51.415] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:51.415] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:51.415] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:51.415] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:51.415] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:51.415] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:51.415] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:02:51.415] Browser ERROR   ./app/login
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/login and /login.
+[00:02:51.415] Browser ERROR   ./app/signup
+You cannot have two parallel pages that resolve to the same path. Please check /(auth)/signup and /signup.
+[00:02:51.415] Browser ERROR   ./app/chat
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/chat and /chat.
+[00:02:51.415] Browser ERROR   ./app/help
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/help and /help.
+[00:02:51.416] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets and /tickets.
+[00:02:51.416] Browser ERROR   ./app/tickets
+You cannot have two parallel pages that resolve to the same path. Please check /(user)/tickets/[id] and /tickets.
+[00:03:00.641] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./node_modules/next/dist/shared/lib/router/router.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:03:00.848] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:31.263] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:34.928] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:27.832] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
