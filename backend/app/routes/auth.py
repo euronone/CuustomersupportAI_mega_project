@@ -19,8 +19,11 @@ from app.core.security import (
     get_current_user,
 )
 from app.repositories.user_repo import user_repo
+from app.integrations.supabase_client import get_supabase
 
 router = APIRouter()
+
+VALID_ROLES = {"admin", "agent", "customer"}
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -54,6 +57,9 @@ async def login(body: LoginRequest):
 
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
 async def signup(body: SignupRequest):
+    # Validate role
+    role = body.role if body.role in VALID_ROLES else "customer"
+
     existing = user_repo.get_by_email(body.email)
     if existing:
         raise HTTPException(
@@ -62,30 +68,57 @@ async def signup(body: SignupRequest):
         )
 
     now = datetime.now(timezone.utc).isoformat()
-    tenant_id = str(uuid.uuid4())
+    user_id = str(uuid.uuid4())
 
-    # Create tenant first (FK constraint)
-    from app.integrations.supabase_client import get_supabase
+    # For admin/agent signups: create or reuse a tenant
+    # For customer signups: create a default tenant
+    tenant_id = str(uuid.uuid4())
     get_supabase().table("tenants").insert({
         "id": tenant_id,
         "name": body.display_name + "'s Organization",
-        "slug": body.email.split("@")[0],
+        "slug": body.email.split("@")[0] + "-" + tenant_id[:8],
         "created_at": now,
         "updated_at": now,
     }).execute()
 
+    # Create user with selected role
     user_repo.create({
-        "id": str(uuid.uuid4()),
+        "id": user_id,
         "tenant_id": tenant_id,
         "email": body.email,
         "password_hash": hash_password(body.password),
         "display_name": body.display_name,
-        "role": "admin",  # First user is admin
+        "role": role,
         "created_at": now,
         "updated_at": now,
     })
 
-    return {"message": "Account created successfully"}
+    # If agent, also create an agent record
+    if role == "agent":
+        get_supabase().table("agents").insert({
+            "id": str(uuid.uuid4()),
+            "tenant_id": tenant_id,
+            "user_id": user_id,
+            "display_name": body.display_name,
+            "status": "available",
+            "skills": [],
+            "active_tickets": 0,
+            "created_at": now,
+            "updated_at": now,
+        }).execute()
+
+    # If customer, also create a customer record
+    if role == "customer":
+        get_supabase().table("customers").insert({
+            "id": str(uuid.uuid4()),
+            "tenant_id": tenant_id,
+            "email": body.email,
+            "display_name": body.display_name,
+            "created_at": now,
+            "updated_at": now,
+        }).execute()
+
+    return {"message": "Account created successfully", "role": role}
 
 
 @router.post("/refresh", response_model=TokenResponse)

@@ -46,6 +46,12 @@ export const ticketService = {
     return api.patch(`/tickets/${id}`, data);
   },
 
+  async getMessages(
+    ticketId: string
+  ): Promise<ApiResponse<Array<{ id: string; sender_type: "customer" | "agent" | "ai" | "system"; sender_name?: string; content: string; created_at: string }>>> {
+    return api.get(`/tickets/${ticketId}/messages`);
+  },
+
   async addMessage(
     ticketId: string,
     content: string

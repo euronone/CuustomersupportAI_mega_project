@@ -6,10 +6,34 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { APP_NAME } from "@/lib/constants";
+import { APP_NAME, API_BASE_URL } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import { Shield, Headphones, User } from "lucide-react";
+
+const roles = [
+  {
+    value: "customer",
+    label: "Customer",
+    description: "Get support for your queries",
+    icon: User,
+  },
+  {
+    value: "agent",
+    label: "Agent",
+    description: "Handle customer support tickets",
+    icon: Headphones,
+  },
+  {
+    value: "admin",
+    label: "Admin",
+    description: "Manage platform and team",
+    icon: Shield,
+  },
+];
 
 export default function SignupPage() {
   const router = useRouter();
+  const [role, setRole] = useState("customer");
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +47,7 @@ export default function SignupPage() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1"}/auth/signup`,
+        `${API_BASE_URL}/auth/signup`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -31,13 +55,14 @@ export default function SignupPage() {
             email,
             password,
             display_name: displayName,
+            role,
           }),
         }
       );
 
       if (!res.ok) {
         const data = await res.json().catch(() => null);
-        throw new Error(data?.message || "Registration failed");
+        throw new Error(data?.detail || data?.message || "Registration failed");
       }
 
       router.push("/login");
@@ -50,7 +75,7 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg p-4">
-      <div className="w-full max-w-sm">
+      <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
           <div className="h-12 w-12 rounded-xl bg-brand flex items-center justify-center text-white font-bold text-xl mb-3">
@@ -61,15 +86,48 @@ export default function SignupPage() {
         </div>
 
         <Card>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Role selector */}
+            <div>
+              <label className="block text-sm font-medium text-text-primary mb-2">
+                I am signing up as
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {roles.map((r) => (
+                  <button
+                    key={r.value}
+                    type="button"
+                    onClick={() => setRole(r.value)}
+                    className={cn(
+                      "flex flex-col items-center gap-1.5 p-3 rounded-lg border text-center transition-all duration-150 cursor-pointer",
+                      role === r.value
+                        ? "border-brand bg-brand/5 text-brand"
+                        : "border-border text-text-muted hover:border-brand/30 hover:bg-bg"
+                    )}
+                  >
+                    <r.icon size={20} />
+                    <span className="text-xs font-semibold">{r.label}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="text-xs text-text-muted mt-1.5 text-center">
+                {roles.find((r) => r.value === role)?.description}
+              </p>
+            </div>
+
             <Input
               label="Full name"
               type="text"
-              placeholder="Jane Smith"
+              placeholder={
+                role === "customer"
+                  ? "Your name"
+                  : role === "agent"
+                    ? "Agent name"
+                    : "Admin name"
+              }
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               required
-              autoFocus
             />
 
             <Input
@@ -103,7 +161,7 @@ export default function SignupPage() {
               className="w-full"
               size="lg"
             >
-              Create account
+              Create {role} account
             </Button>
           </form>
 

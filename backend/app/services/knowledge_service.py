@@ -2,7 +2,7 @@ import uuid
 import logging
 from datetime import datetime, timezone
 
-from app.repositories.knowledge_repo import knowledge_doc_repo, knowledge_chunk_repo
+from app.repositories.knowledge_repo import knowledge_doc_repo, knowledge_chunk_repo, knowledge_collection_repo
 from app.core.exceptions import NotFoundException
 
 logger = logging.getLogger("euron.knowledge")
@@ -39,3 +39,21 @@ def delete_document(doc_id: str, tenant_id: str) -> None:
     knowledge_chunk_repo.delete_by_document(doc_id, tenant_id)
     knowledge_doc_repo.soft_delete(doc_id, tenant_id)
     logger.info("document_deleted", extra={"doc_id": doc_id, "tenant_id": tenant_id})
+
+
+# --------------- Collections ---------------
+
+def list_collections(tenant_id: str) -> tuple[list[dict], int]:
+    return knowledge_collection_repo.list(tenant_id)
+
+
+def create_collection(tenant_id: str, name: str, description: str | None = None) -> dict:
+    now = datetime.now(timezone.utc).isoformat()
+    return knowledge_collection_repo.create({
+        "id": str(uuid.uuid4()),
+        "tenant_id": tenant_id,
+        "name": name,
+        "description": description,
+        "document_count": 0,
+        "created_at": now,
+    })

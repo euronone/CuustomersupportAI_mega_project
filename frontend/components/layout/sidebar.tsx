@@ -13,6 +13,8 @@ import {
   Settings,
   LogOut,
   ChevronLeft,
+  Inbox,
+  BarChart3,
 } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 import { useState } from "react";
@@ -23,28 +25,43 @@ interface NavItem {
   icon: React.ElementType;
 }
 
-const userNav: NavItem[] = [
+const customerNav: NavItem[] = [
   { label: "Chat", href: "/chat", icon: MessageSquare },
-  { label: "Tickets", href: "/tickets", icon: Ticket },
+  { label: "My Tickets", href: "/tickets", icon: Ticket },
   { label: "Help Center", href: "/help", icon: HelpCircle },
+];
+
+const agentNav: NavItem[] = [
+  { label: "Dashboard", href: "/agent/dashboard", icon: LayoutDashboard },
+  { label: "Inbox", href: "/agent/inbox", icon: Inbox },
+  { label: "My Tickets", href: "/agent/tickets", icon: Ticket },
 ];
 
 const adminNav: NavItem[] = [
   { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Knowledge Base", href: "/admin/knowledge", icon: BookOpen },
   { label: "Agents", href: "/admin/agents", icon: Users },
+  { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
 interface SidebarProps {
-  role: "admin" | "user";
+  role: "admin" | "agent" | "customer";
 }
 
 export function Sidebar({ role }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
 
-  const navItems = role === "admin" ? [...adminNav, ...userNav] : userNav;
+  const navItems =
+    role === "admin"
+      ? adminNav
+      : role === "agent"
+        ? agentNav
+        : customerNav;
+
+  const roleLabel =
+    role === "admin" ? "Admin" : role === "agent" ? "Agent" : "Support";
 
   return (
     <aside
@@ -59,47 +76,38 @@ export function Sidebar({ role }: SidebarProps) {
           E
         </div>
         {!collapsed && (
-          <span className="text-lg font-bold text-text-primary">
-            {APP_NAME}
-          </span>
+          <div>
+            <span className="text-lg font-bold text-text-primary">
+              {APP_NAME}
+            </span>
+            <span className="block text-[10px] font-medium text-text-muted uppercase tracking-wider">
+              {roleLabel} Panel
+            </span>
+          </div>
         )}
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
-        {role === "admin" && !collapsed && (
-          <p className="px-3 mb-2 text-[11px] font-semibold text-text-muted uppercase tracking-wider">
-            Admin
-          </p>
-        )}
         {navItems.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
-          const isUserSection = userNav.some((u) => u.href === item.href);
+          const isActive =
+            pathname === item.href || pathname.startsWith(item.href + "/");
 
           return (
-            <span key={item.href}>
-              {role === "admin" &&
-                isUserSection &&
-                item.href === userNav[0].href &&
-                !collapsed && (
-                  <p className="px-3 mt-4 mb-2 text-[11px] font-semibold text-text-muted uppercase tracking-wider">
-                    Support
-                  </p>
-                )}
-              <Link
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-100",
-                  isActive
-                    ? "bg-brand/10 text-brand"
-                    : "text-text-muted hover:bg-bg hover:text-text-primary"
-                )}
-                title={collapsed ? item.label : undefined}
-              >
-                <item.icon size={20} className="shrink-0" />
-                {!collapsed && <span>{item.label}</span>}
-              </Link>
-            </span>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-100",
+                isActive
+                  ? "bg-brand/10 text-brand"
+                  : "text-text-muted hover:bg-bg hover:text-text-primary"
+              )}
+              title={collapsed ? item.label : undefined}
+            >
+              <item.icon size={20} className="shrink-0" />
+              {!collapsed && <span>{item.label}</span>}
+            </Link>
           );
         })}
       </nav>
@@ -123,6 +131,7 @@ export function Sidebar({ role }: SidebarProps) {
           onClick={() => {
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token");
+            localStorage.removeItem("user");
             window.location.href = "/login";
           }}
           className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-sm text-text-muted hover:bg-bg hover:text-error transition-colors cursor-pointer"

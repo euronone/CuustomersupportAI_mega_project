@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Optional
+from datetime import date, datetime, timezone
 from app.integrations.supabase_client import get_supabase
 
 
@@ -67,6 +68,52 @@ class TicketRepository:
             .execute()
         )
         return result.count or 0
+
+    def count_resolved_today(self, tenant_id: str) -> int:
+        """Count tickets with status 'resolved' that were updated today (UTC)."""
+        today_start = datetime.now(timezone.utc).replace(
+            hour=0, minute=0, second=0, microsecond=0
+        ).isoformat()
+        result = (
+            get_supabase()
+            .table(self.table)
+            .select("id", count="exact")
+            .eq("tenant_id", tenant_id)
+            .eq("status", "resolved")
+            .gte("updated_at", today_start)
+            .execute()
+        )
+        return result.count or 0
+
+    def get_avg_resolution_time(self, tenant_id: str) -> float:
+        """Calculate average resolution time in hours for resolved tickets.
+
+        Returns the mean difference between updated_at and created_at
+        for all tickets with status 'resolved'.  Returns 0.0 if there
+        are no resolved tickets.
+        """
+        result = (
+            get_supabase()
+            .table(self.table)
+            .select("created_at, updated_at")
+            .eq("tenant_id", tenant_id)
+            .eq("status", "resolved")
+            .execute()
+        )
+        if not result.data:
+            return 0.0
+
+        total_hours = 0.0
+        count = 0
+        for ticket in result.data:
+            created = datetime.fromisoformat(ticket["created_at"])
+            updated = datetime.fromisoformat(ticket["updated_at"])
+            delta = (updated - created).total_seconds() / 3600.0
+            if delta >= 0:
+                total_hours += delta
+                count += 1
+
+        return round(total_hours / count, 2) if count > 0 else 0.0
 
 
 ticket_repo = TicketRepository()

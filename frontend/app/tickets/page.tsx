@@ -1,89 +1,145 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { TicketList } from "@/components/tickets/ticket-list";
 import { Button } from "@/components/ui/button";
-import type { Ticket, TicketStatus } from "@/types";
-import { Plus } from "lucide-react";
-
-// Mock data — will be replaced by API calls
-const mockTickets: Ticket[] = [
-  {
-    id: "t-1",
-    tenant_id: "demo",
-    customer_id: "c-1",
-    subject: "Unable to access dashboard after password reset",
-    status: "open",
-    priority: "high",
-    assigned_agent_id: "a-1",
-    summary:
-      "Customer reset their password but is now getting a 403 error when trying to access the main dashboard.",
-    created_at: new Date(Date.now() - 3600000).toISOString(),
-    updated_at: new Date(Date.now() - 1800000).toISOString(),
-    assigned_agent: {
-      id: "a-1",
-      tenant_id: "demo",
-      user_id: "u-1",
-      display_name: "Sarah Chen",
-      status: "available",
-      skills: ["auth", "billing"],
-      active_tickets: 3,
-      created_at: "",
-      updated_at: "",
-    },
-  },
-  {
-    id: "t-2",
-    tenant_id: "demo",
-    customer_id: "c-2",
-    subject: "Billing discrepancy on March invoice",
-    status: "pending",
-    priority: "medium",
-    summary: "Customer was charged twice for the Pro plan subscription.",
-    created_at: new Date(Date.now() - 86400000).toISOString(),
-    updated_at: new Date(Date.now() - 43200000).toISOString(),
-  },
-  {
-    id: "t-3",
-    tenant_id: "demo",
-    customer_id: "c-3",
-    subject: "Feature request: Export reports to PDF",
-    status: "resolved",
-    priority: "low",
-    summary: "Customer would like the ability to export analytics reports as PDF files.",
-    created_at: new Date(Date.now() - 172800000).toISOString(),
-    updated_at: new Date(Date.now() - 86400000).toISOString(),
-  },
-];
+import { Modal } from "@/components/ui/modal";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
+import { EmptyState } from "@/components/ui/empty-state";
+import { useUser } from "@/hooks/useUser";
+import { useTickets } from "@/hooks/useTickets";
+import { ticketService } from "@/services/tickets";
+import { PageLoader } from "@/components/ui/spinner";
+import type { TicketStatus, TicketPriority } from "@/types";
+import { Plus, Ticket } from "lucide-react";
 
 export default function TicketsPage() {
+  const { user, loading: userLoading } = useUser();
   const [filter, setFilter] = useState<TicketStatus | "all">("all");
+  const { tickets, total, loading, error, refetch } = useTickets({
+    status: filter === "all" ? undefined : filter,
+  });
+  const [showCreate, setShowCreate] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [subject, setSubject] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState<TicketPriority>("medium");
+  const router = useRouter();
 
-  const filteredTickets =
-    filter === "all"
-      ? mockTickets
-      : mockTickets.filter((t) => t.status === filter);
+  const handleCreate = useCallback(async () => {
+    if (!subject.trim() || creating) return;
+    setCreating(true);
+    try {
+      await ticketService.create({
+        subject,
+        customer_id: user?.id || "",
+        priority,
+      });
+      setShowCreate(false);
+      setSubject("");
+      setDescription("");
+      setPriority("medium");
+      refetch();
+    } catch (err) {
+      console.error("Failed to create ticket:", err);
+    } finally {
+      setCreating(false);
+    }
+  }, [subject, priority, user, creating, refetch]);
+
+  if (userLoading) return <PageLoader />;
+
+  const role = user?.role || "customer";
 
   return (
-    <AppShell role="user" pageTitle="Tickets" userName="Demo User">
+    <AppShell role={role} pageTitle="Tickets" userName={user?.display_name || "User"}>
       <div className="flex items-center justify-between mb-6">
         <div>
           <p className="text-sm text-text-muted">
-            {mockTickets.length} total tickets
+            {total} total ticket{total !== 1 ? "s" : ""}
           </p>
         </div>
-        <Button size="sm">
+        <Button size="sm" onClick={() => setShowCreate(true)}>
           <Plus size={16} />
           New Ticket
         </Button>
       </div>
 
-      <TicketList
-        tickets={filteredTickets}
-        activeFilter={filter}
-        onFilterChange={setFilter}
-      />
+      {loading ? (
+        <div className="flex items-center justify-center h-48">
+          <Spinner size="lg" />
+        </div>
+      ) : error ? (
+        <EmptyState
+          icon={Ticket}
+          title="Failed to load tickets"
+          description={error}
+          action={{ label: "Retry", onClick: refetch }}
+        />
+      ) : tickets.length === 0 && filter === "all" ? (
+        <EmptyState
+          icon={Ticket}
+          title="No tickets yet"
+          description="Create your first support ticket to get help."
+          action={{ label: "Create Ticket", onClick: () => setShowCreate(true) }}
+        />
+      ) : (
+        <TicketList
+          tickets={tickets}
+          activeFilter={filter}
+          onFilterChange={setFilter}
+        />
+      )}
+
+      {/* Create Ticket Modal */}
+      <Modal
+        isOpen={showCreate}
+        onClose={() => setShowCreate(false)}
+        title="Create New Ticket"
+      >
+        <div className="space-y-4">
+          <Input
+            label="Subject"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            placeholder="Briefly describe your issue"
+          />
+          <Textarea
+            label="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Provide more details about your issue"
+          />
+          <Select
+            label="Priority"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value as TicketPriority)}
+            options={[
+              { value: "low", label: "Low" },
+              { value: "medium", label: "Medium" },
+              { value: "high", label: "High" },
+              { value: "urgent", label: "Urgent" },
+            ]}
+          />
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="secondary" onClick={() => setShowCreate(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleCreate}
+              loading={creating}
+              disabled={!subject.trim() || creating}
+            >
+              Create Ticket
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </AppShell>
   );
 }

@@ -7,11 +7,24 @@ export default function HomePage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to login if not authenticated, otherwise to chat
     const token = localStorage.getItem("access_token");
-    if (token) {
-      router.replace("/chat");
-    } else {
+    if (!token) {
+      router.replace("/login");
+      return;
+    }
+
+    // Redirect based on stored user role
+    try {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const role = user.role;
+      if (role === "admin") {
+        router.replace("/admin/dashboard");
+      } else if (role === "agent") {
+        router.replace("/agent/dashboard");
+      } else {
+        router.replace("/chat");
+      }
+    } catch {
       router.replace("/login");
     }
   }, [router]);

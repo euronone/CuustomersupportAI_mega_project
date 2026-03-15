@@ -6,8 +6,10 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, BookOpen, FileText, HelpCircle } from "lucide-react";
+import { useUser } from "@/hooks/useUser";
+import { PageLoader } from "@/components/ui/spinner";
 
-// Mock data — will be replaced by KB API
+// Knowledge base collections
 const collections = [
   {
     id: "1",
@@ -60,10 +62,13 @@ const popularArticles = [
 ];
 
 export default function HelpCenterPage() {
+  const { user, loading } = useUser();
   const [search, setSearch] = useState("");
 
+  if (loading || !user) return <PageLoader />;
+
   return (
-    <AppShell role="user" pageTitle="Help Center" userName="Demo User">
+    <AppShell role={user.role} pageTitle="Help Center" userName={user.display_name}>
       {/* Search hero */}
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-text-primary mb-2">

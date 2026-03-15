@@ -10,6 +10,7 @@ class SignupRequest(BaseModel):
     email: EmailStr
     password: str
     display_name: str
+    role: str = "customer"  # "admin", "agent", or "customer"
 
 
 class TokenResponse(BaseModel):

@@ -5,18 +5,20 @@ import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
 interface ModalProps {
-  open: boolean;
+  open?: boolean;
+  isOpen?: boolean;
   onClose: () => void;
   title: string;
   children: React.ReactNode;
   className?: string;
 }
 
-function Modal({ open, onClose, title, children, className }: ModalProps) {
+function Modal({ open, isOpen, onClose, title, children, className }: ModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const isVisible = open ?? isOpen ?? false;
 
   useEffect(() => {
-    if (open) {
+    if (isVisible) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -24,19 +26,19 @@ function Modal({ open, onClose, title, children, className }: ModalProps) {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [isVisible]);
 
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
     }
-    if (open) {
+    if (isVisible) {
       window.addEventListener("keydown", handleKey);
       return () => window.removeEventListener("keydown", handleKey);
     }
-  }, [open, onClose]);
+  }, [isVisible, onClose]);
 
-  if (!open) return null;
+  if (!isVisible) return null;
 
   return (
     <div

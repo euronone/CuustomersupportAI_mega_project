@@ -72,8 +72,8 @@ async def ingest_url(
 
 @router.get("/collections", response_model=PaginatedResponse[CollectionResponse])
 async def list_collections(current_user: dict = Depends(get_current_user)):
-    # TODO: Implement collection repository
-    return PaginatedResponse(data=[], total=0)
+    collections, total = knowledge_service.list_collections(current_user["tenant_id"])
+    return PaginatedResponse(data=collections, total=total)
 
 
 @router.post(
@@ -85,5 +85,9 @@ async def create_collection(
     body: CreateCollectionRequest,
     current_user: dict = Depends(require_role("admin")),
 ):
-    # TODO: Implement collection creation
-    return ApiResponse(data={"id": "", "tenant_id": "", "name": body.name, "created_at": ""})
+    collection = knowledge_service.create_collection(
+        tenant_id=current_user["tenant_id"],
+        name=body.name,
+        description=body.description,
+    )
+    return ApiResponse(data=collection)

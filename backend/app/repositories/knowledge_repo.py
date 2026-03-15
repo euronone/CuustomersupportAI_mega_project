@@ -80,5 +80,27 @@ class KnowledgeChunkRepository:
         return result.data
 
 
+class KnowledgeCollectionRepository:
+    def __init__(self):
+        self.table = "knowledge_collections"
+
+    def list(self, tenant_id: str, limit: int = 50, offset: int = 0) -> tuple[list[dict], int]:
+        result = (
+            get_supabase()
+            .table(self.table)
+            .select("*", count="exact")
+            .eq("tenant_id", tenant_id)
+            .order("created_at", desc=True)
+            .range(offset, offset + limit - 1)
+            .execute()
+        )
+        return result.data, result.count or 0
+
+    def create(self, data: dict) -> dict:
+        result = get_supabase().table(self.table).insert(data).execute()
+        return result.data[0]
+
+
 knowledge_doc_repo = KnowledgeDocumentRepository()
 knowledge_chunk_repo = KnowledgeChunkRepository()
+knowledge_collection_repo = KnowledgeCollectionRepository()

@@ -5,7 +5,7 @@ import { Header } from "./header";
 
 interface AppShellProps {
   children: React.ReactNode;
-  role: "admin" | "user";
+  role: "admin" | "agent" | "customer";
   pageTitle: string;
   userName?: string;
 }
